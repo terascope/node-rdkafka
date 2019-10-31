@@ -1,5 +1,8 @@
 {
-  "name": "node-rdkafka",
+  "name": "@terascope/node-rdkafka",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "v2.7.3",
   "description": "Node.js bindings for librdkafka",
   "librdkafka": "1.2.1",
@@ -17,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:Blizzard/node-rdkafka.git"
+    "url": "git@github.com:terascope/node-rdkafka.git"
   },
   "contributors": [
     {

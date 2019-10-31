@@ -3,14 +3,16 @@ node-rdkafka - Node.js wrapper for Kafka C/C++ library
 
 Copyright (c) 2016 Blizzard Entertainment.
 
-[https://github.com/blizzard/node-rdkafka](https://github.com/blizzard/node-rdkafka)
+[https://github.com/terascope/node-rdkafka](https://github.com/terascope/node-rdkafka)
 
-[![Build Status](https://travis-ci.org/Blizzard/node-rdkafka.svg?branch=master)](https://travis-ci.org/Blizzard/node-rdkafka)
+[![Build Status](https://travis-ci.org/terascope/node-rdkafka.svg?branch=master)](https://travis-ci.org/terascope/node-rdkafka)
 [![npm version](https://badge.fury.io/js/node-rdkafka.svg)](https://badge.fury.io/js/node-rdkafka)
 
-# Looking for Collaborators!
+# Why does this fork exists?
 
-I am looking for *your* help to make this project even better! If you're interested, check [this out](https://github.com/Blizzard/node-rdkafka/issues/628)
+This fork exists because node-rdkafka is in limbo looking for [collaborators](https://github.com/Blizzard/node-rdkafka/issues/628) and the ability to publish to NPM is currently [not working](https://github.com/Blizzard/node-rdkafka/issues/700).
+
+This fork probably won't contain any new features (or major bug fixes), any issue should be submitted to the [original repo](https://github.com/Blizzard/node-rdkafka/issues).
 
 # Overview
 
@@ -24,7 +26,7 @@ To view the reference docs for the current version, go [here](https://blizzard.g
 
 ## Contributing
 
-For guidelines on contributing please see [CONTRIBUTING.md](https://github.com/blizzard/node-rdkafka/blob/master/CONTRIBUTING.md)
+Please contribute to the original repo using the guidelines here, [CONTRIBUTING.md](https://github.com/blizzard/node-rdkafka/blob/master/CONTRIBUTING.md)
 
 ## Code of Conduct
 
@@ -55,7 +57,7 @@ __NOTE:__ From the `librdkafka` docs
 
 ### Alpine
 
-Using Alpine Linux? Check out the [docs](https://github.com/Blizzard/node-rdkafka/blob/master/examples/docker-alpine.md).
+Using Alpine Linux? Check out the [docs](https://github.com/terascope/node-rdkafka/blob/master/examples/docker-alpine.md).
 
 ### Windows
 
@@ -82,16 +84,16 @@ You can run both types of tests by using `Makefile`. Doing so calls `mocha` in y
 
 # Usage
 
-You can install the `node-rdkafka` module like any other module:
+You can install the `@terascope/node-rdkafka` module like any other module:
 
 ```
-npm install node-rdkafka
+npm install @terascope/node-rdkafka
 ```
 
 To use the module, you must `require` it.
 
 ```js
-var Kafka = require('node-rdkafka');
+var Kafka = require('@terascope/node-rdkafka');
 ```
 
 ## Configuration
@@ -119,7 +121,7 @@ This library includes two utility functions for detecting the status of your ins
 You can get the features supported by your compile of `librdkafka` by reading the variable "features" on the root of the `node-rdkafka` object.
 
 ```js
-const Kafka = require('node-rdkafka');
+const Kafka = require('@terascope/node-rdkafka');
 console.log(Kafka.features);
 
 // #=> [ 'gzip', 'snappy', 'ssl', 'sasl', 'regex', 'lz4' ]
@@ -128,7 +130,7 @@ console.log(Kafka.features);
 You can also get the version of `librdkafka`
 
 ```js
-const Kafka = require('node-rdkafka');
+const Kafka = require('@terascope/node-rdkafka');
 console.log(Kafka.librdkafkaVersion);
 
 // #=> 1.2.1
@@ -248,14 +250,14 @@ To see the configuration options available to you, see the [Configuration](#conf
 
 ##### Methods
 
-|Method|Description|
-|-------|----------|
-|`producer.connect()`| Connects to the broker. <br><br> The `connect()` method emits the `ready` event when it connects successfully. If it does not, the error will be passed through the callback. |
-|`producer.disconnect()`| Disconnects from the broker. <br><br>The `disconnect()` method emits the `disconnected` event when it has disconnected. If it does not, the error will be passed through the callback. |
-|`producer.poll()` | Polls the producer for delivery reports or other events to be transmitted via the emitter. <br><br>In order to get the events in `librdkafka`'s queue to emit, you must call this regularly. |
-|`producer.setPollInterval(interval)` | Polls the producer on this interval, handling disconnections and reconnection. Set it to 0 to turn it off. |
-|`producer.produce(topic, partition, msg, key, timestamp, opaque)`| Sends a message. <br><br>The `produce()` method throws when produce would return an error. Ordinarily, this is just if the queue is full. |
-|`producer.flush(timeout, callback)`| Flush the librdkafka internal queue, sending all messages. Default timeout is 500ms |
+| Method                                                            | Description                                                                                                                                                                                  |
+| ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `producer.connect()`                                              | Connects to the broker. <br><br> The `connect()` method emits the `ready` event when it connects successfully. If it does not, the error will be passed through the callback.                |
+| `producer.disconnect()`                                           | Disconnects from the broker. <br><br>The `disconnect()` method emits the `disconnected` event when it has disconnected. If it does not, the error will be passed through the callback.       |
+| `producer.poll()`                                                 | Polls the producer for delivery reports or other events to be transmitted via the emitter. <br><br>In order to get the events in `librdkafka`'s queue to emit, you must call this regularly. |
+| `producer.setPollInterval(interval)`                              | Polls the producer on this interval, handling disconnections and reconnection. Set it to 0 to turn it off.                                                                                   |
+| `producer.produce(topic, partition, msg, key, timestamp, opaque)` | Sends a message. <br><br>The `produce()` method throws when produce would return an error. Ordinarily, this is just if the queue is full.                                                    |
+| `producer.flush(timeout, callback)`                               | Flush the librdkafka internal queue, sending all messages. Default timeout is 500ms                                                                                                          |
 
 ##### Events
 
@@ -285,15 +287,15 @@ producer.on('delivery-report', function(err, report) {
 
 The following table describes types of events.
 
-|Event|Description|
-|-------|----------|
-| `disconnected` | The `disconnected` event is emitted when the broker has disconnected. <br><br>This event is emitted only when `.disconnect` is called. The wrapper will always try to reconnect otherwise. |
-| `ready` | The `ready` event is emitted when the `Producer` is ready to send messages. |
-| `event` | The `event` event is emitted when `librdkafka` reports an event (if you opted in via the `event_cb` option). |
-| `event.log` | The `event.log` event is emitted when logging events come in (if you opted into logging via the `event_cb` option). <br><br>You will need to set a value for `debug` if you want to send information. |
-| `event.stats` | The  `event.stats` event is emitted when `librdkafka` reports stats (if you opted in by setting the `statistics.interval.ms` to a non-zero value). |
-| `event.error` | The  `event.error` event is emitted when `librdkafka` reports an error |
-| `event.throttle` | The `event.throttle` event emitted  when `librdkafka` reports throttling. |
+| Event             | Description                                                                                                                                                                                                                                                                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disconnected`    | The `disconnected` event is emitted when the broker has disconnected. <br><br>This event is emitted only when `.disconnect` is called. The wrapper will always try to reconnect otherwise.                                                                                                                                          |
+| `ready`           | The `ready` event is emitted when the `Producer` is ready to send messages.                                                                                                                                                                                                                                                         |
+| `event`           | The `event` event is emitted when `librdkafka` reports an event (if you opted in via the `event_cb` option).                                                                                                                                                                                                                        |
+| `event.log`       | The `event.log` event is emitted when logging events come in (if you opted into logging via the `event_cb` option). <br><br>You will need to set a value for `debug` if you want to send information.                                                                                                                               |
+| `event.stats`     | The  `event.stats` event is emitted when `librdkafka` reports stats (if you opted in by setting the `statistics.interval.ms` to a non-zero value).                                                                                                                                                                                  |
+| `event.error`     | The  `event.error` event is emitted when `librdkafka` reports an error                                                                                                                                                                                                                                                              |
+| `event.throttle`  | The `event.throttle` event emitted  when `librdkafka` reports throttling.                                                                                                                                                                                                                                                           |
 | `delivery-report` | The `delivery-report` event is emitted when a delivery report has been found via polling. <br><br>To use this event, you must set `request.required.acks` to `1` or `-1` in topic configuration and `dr_cb` (or `dr_msg_cb` if you want the report to contain the message payload) to `true` in the `Producer` constructor options. |
 
 ### Higher Level Producer
@@ -480,30 +482,30 @@ consumer
 
 The following table lists important methods for this API.
 
-|Method|Description|
-|-------|----------|
-|`consumer.connect()` | Connects to the broker. <br><br>The `connect()` emits the event `ready` when it has successfully connected. If it does not, the error will be passed through the callback. |
-|`consumer.disconnect()` | Disconnects from the broker. <br><br>The `disconnect()` method emits `disconnected` when it has disconnected. If it does not, the error will be passed through the callback. |
-|`consumer.subscribe(topics)` | Subscribes to an array of topics. |
-|`consumer.unsubscribe()` | Unsubscribes from the currently subscribed topics. <br><br>You cannot subscribe to different topics without calling the `unsubscribe()` method first. |
-|`consumer.consume(cb)` | Gets messages from the existing subscription as quickly as possible. This method keeps a background thread running to do the work. If `cb` is specified, invokes `cb(err, message)`. |
-|`consumer.consume(number, cb)` | Gets `number` of messages from the existing subscription. If `cb` is specified, invokes `cb(err, message)`. |
-|`consumer.commit()` | Commits all locally stored offsets |
-|`consumer.commit(topicPartition)` | Commits offsets specified by the topic partition |
-|`consumer.commitMessage(message)` | Commits the offsets specified by the message |
+| Method                            | Description                                                                                                                                                                          |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `consumer.connect()`              | Connects to the broker. <br><br>The `connect()` emits the event `ready` when it has successfully connected. If it does not, the error will be passed through the callback.           |
+| `consumer.disconnect()`           | Disconnects from the broker. <br><br>The `disconnect()` method emits `disconnected` when it has disconnected. If it does not, the error will be passed through the callback.         |
+| `consumer.subscribe(topics)`      | Subscribes to an array of topics.                                                                                                                                                    |
+| `consumer.unsubscribe()`          | Unsubscribes from the currently subscribed topics. <br><br>You cannot subscribe to different topics without calling the `unsubscribe()` method first.                                |
+| `consumer.consume(cb)`            | Gets messages from the existing subscription as quickly as possible. This method keeps a background thread running to do the work. If `cb` is specified, invokes `cb(err, message)`. |
+| `consumer.consume(number, cb)`    | Gets `number` of messages from the existing subscription. If `cb` is specified, invokes `cb(err, message)`.                                                                          |
+| `consumer.commit()`               | Commits all locally stored offsets                                                                                                                                                   |
+| `consumer.commit(topicPartition)` | Commits offsets specified by the topic partition                                                                                                                                     |
+| `consumer.commitMessage(message)` | Commits the offsets specified by the message                                                                                                                                         |
 
 The following table lists events for this API.
 
-|Event|Description|
-|-------|----------|
-|`data` | When using the Standard API consumed messages are emitted in this event. |
-|`disconnected` | The `disconnected` event is emitted when the broker disconnects. <br><br>This event is only emitted when `.disconnect` is called. The wrapper will always try to reconnect otherwise. |
-|`ready` | The `ready` event is emitted when the `Consumer` is ready to read messages. |
-|`event` | The `event` event is emitted when `librdkafka` reports an event (if you opted in via the `event_cb` option).|
-|`event.log` | The `event.log` event is emitted when logging events occur (if you opted in for logging  via the `event_cb` option).<br><br> You will need to set a value for `debug` if you want information to send. |
-|`event.stats` | The  `event.stats` event is emitted when `librdkafka` reports stats (if you opted in by setting the `statistics.interval.ms` to a non-zero value). |
-|`event.error` | The  `event.error` event is emitted when `librdkafka` reports an error |
-|`event.throttle` | The `event.throttle` event is emitted when `librdkafka` reports throttling.|
+| Event            | Description                                                                                                                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `data`           | When using the Standard API consumed messages are emitted in this event.                                                                                                                               |
+| `disconnected`   | The `disconnected` event is emitted when the broker disconnects. <br><br>This event is only emitted when `.disconnect` is called. The wrapper will always try to reconnect otherwise.                  |
+| `ready`          | The `ready` event is emitted when the `Consumer` is ready to read messages.                                                                                                                            |
+| `event`          | The `event` event is emitted when `librdkafka` reports an event (if you opted in via the `event_cb` option).                                                                                           |
+| `event.log`      | The `event.log` event is emitted when logging events occur (if you opted in for logging  via the `event_cb` option).<br><br> You will need to set a value for `debug` if you want information to send. |
+| `event.stats`    | The  `event.stats` event is emitted when `librdkafka` reports stats (if you opted in by setting the `statistics.interval.ms` to a non-zero value).                                                     |
+| `event.error`    | The  `event.error` event is emitted when `librdkafka` reports an error                                                                                                                                 |
+| `event.throttle` | The `event.throttle` event is emitted when `librdkafka` reports throttling.                                                                                                                            |
 
 ## Reading current offsets from the broker for a topic
 
@@ -587,7 +589,7 @@ producer.getMetadata(opts, function(err, metadata) {
 To create an Admin client, you can do as follows:
 
 ```js
-const Kafka = require('node-rdkafka');
+const Kafka = require('@terascope/node-rdkafka');
 
 const client = Kafka.AdminClient.create({
   'client.id': 'kafka-admin',
@@ -611,11 +613,11 @@ All of the admin api methods can have an optional timeout as their penultimate p
 
 The following table lists important methods for this API.
 
-|Method|Description|
-|-------|----------|
-|`client.disconnect()` | Destroy the admin client, making it invalid for further use. |
-|`client.createTopic(topic, timeout, cb)` | Create a topic on the broker with the given configuration. See JS doc for more on structure of the topic object |
-|`client.deleteTopic(topicName, timeout, cb)` | Delete a topic of the given name |
-|`client.createPartitions(topicName, desiredPartitions, timeout, cb)` | Create partitions until the topic has the desired number of partitions. |
+| Method                                                               | Description                                                                                                     |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `client.disconnect()`                                                | Destroy the admin client, making it invalid for further use.                                                    |
+| `client.createTopic(topic, timeout, cb)`                             | Create a topic on the broker with the given configuration. See JS doc for more on structure of the topic object |
+| `client.deleteTopic(topicName, timeout, cb)`                         | Delete a topic of the given name                                                                                |
+| `client.createPartitions(topicName, desiredPartitions, timeout, cb)` | Create partitions until the topic has the desired number of partitions.                                         |
 
 Check the tests for an example of how to use this API!
