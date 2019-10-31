@@ -25,10 +25,6 @@ jobs:
       env: CPPFLAGS=-I/usr/local/opt/openssl/include LDFLAGS=-L/usr/local/opt/openssl/lib
       node_js:
         - "10"
-    - stage: test_on_win
-      os: windows
-      node_js:
-        - "10"
     - stage: deploy
       os: linux
       node_js:
