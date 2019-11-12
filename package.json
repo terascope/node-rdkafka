@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "v2.7.3",
+  "version": "v2.7.4",
   "description": "Node.js bindings for librdkafka",
   "librdkafka": "1.2.2",
   "main": "lib/index.js",
